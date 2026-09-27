@@ -284,7 +284,8 @@ jobs:
   docker-build:
     needs: [backend-lint, backend-test, frontend-build, security-scan]
     # Skip for fork PRs (secrets not available)
-    if: github.event.pull_request.head.repo.full_name == github.repository || github.event_name == 'push'
+    # if: github.event.pull_request.head.repo.full_name == github.repository || github.event_name == 'push' 
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     strategy:
       fail-fast: false
       matrix:
